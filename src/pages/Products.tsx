@@ -1,3 +1,4 @@
+
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
@@ -8,7 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/components/ui/use-toast";
 
 interface Product {
-  id: number;
+  id: string; // Changed from number to string to match Supabase UUID
   name: string;
   description: string;
   price: number;
@@ -31,9 +32,9 @@ const Products: React.FC = () => {
     checkAuth();
   }, [navigate]);
 
-  const { data: products, isLoading } = useQuery<Product[]>({
+  const { data: products, isLoading } = useQuery({
     queryKey: ["products"],
-    queryFn: async () => {
+    queryFn: async (): Promise<Product[]> => {
       const { data, error } = await supabase.from("products").select("*");
       if (error) throw error;
       return data;
@@ -64,10 +65,8 @@ const Products: React.FC = () => {
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold">Our Products</h1>
-        {/* Example input field with writingsuggestions attribute */}
         <input
           type="text"
-          writingsuggestions="true" // Updated attribute
           placeholder="Search products..."
           className="border rounded p-2"
         />
