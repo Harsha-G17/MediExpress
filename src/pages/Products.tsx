@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/components/ui/use-toast";
 
 interface Product {
-  id: string;
+  id: string; // Changed from number to string to match Supabase UUID
   name: string;
   description: string;
   price: number;
@@ -34,10 +34,10 @@ const Products: React.FC = () => {
 
   const { data: products, isLoading } = useQuery({
     queryKey: ["products"],
-    queryFn: async () => {
+    queryFn: async (): Promise<Product[]> => {
       const { data, error } = await supabase.from("products").select("*");
       if (error) throw error;
-      return data as Product[];
+      return data;
     },
   });
 
