@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -18,9 +19,8 @@ import BookConsultation from "./components/BookConsultation";
 import ChatBot from "./pages/ChatBot";
 import VerificationStatus from "./pages/Verificationstatus";
 import ConsultationsList from "./pages/ConsultationsList ";
-import Dashboard from "./pages/dashboard";
-
-
+import Dashboard from "./pages/Dashboard";
+import AdminDashboard from "./pages/AdminDashboard";
 
 const App = () => {
   const [queryClient] = useState(() => new QueryClient());
@@ -31,7 +31,7 @@ const App = () => {
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <div className="min-h-screen">
+          <div className="min-h-screen bg-gray-50">
             <Header />
             <Routes>
               <Route path="/" element={<Index />} />
@@ -47,6 +47,7 @@ const App = () => {
               <Route path="/Verificationstatus" element={<VerificationStatus/>}/>
               <Route path="/ConsultationsList" element={<ConsultationsList/>}/>
               <Route path="/Dashboard" element={<Dashboard/>}/>
+              <Route path="/admin-dashboard" element={<AdminDashboard/>}/>
             </Routes>
             <ChatBot />
           </div>
