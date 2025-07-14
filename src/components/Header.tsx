@@ -1,10 +1,9 @@
-
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useEffect, useState } from "react";
-import { Stethoscope, ShoppingBag, Calendar, Settings } from "lucide-react";
+import { Stethoscope, ShoppingBag, Calendar, Settings, FileText } from "lucide-react";
 
 export const Header = () => {
   const navigate = useNavigate();
@@ -56,9 +55,10 @@ export const Header = () => {
               {user && (
                 <>
                   <Link
-                    to="/per"
-                    className="text-gray-600 hover:text-gray-900"
+                    to="/my-prescriptions"
+                    className="text-gray-600 hover:text-gray-900 flex items-center gap-2"
                   >
+                    <FileText className="h-4 w-4" />
                     Prescriptions
                   </Link>
                   <Link 

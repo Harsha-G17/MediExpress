@@ -1,13 +1,15 @@
+
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { supabase } from "@/integrations/supabase/client";
 import Tesseract from "tesseract.js";
 
-const VerifyPrescription = () => {
+const Prescriptions = () => {
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   const [ocrText, setOcrText] = useState<string | null>(null);
@@ -16,7 +18,6 @@ const VerifyPrescription = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Extract medicine name & price from URL
   const queryParams = new URLSearchParams(location.search);
   const medicineName = queryParams.get("medicine") || "";
   const medicinePrice = queryParams.get("price") || "0";
@@ -24,12 +25,46 @@ const VerifyPrescription = () => {
   const processOCR = async (file: File): Promise<string> => {
     try {
       const { data } = await Tesseract.recognize(file, "eng", {
-        logger: (info) => console.log(info), // Log OCR progress
+        logger: (info) => console.log(info),
       });
       return data.text;
     } catch (error) {
       throw new Error("Failed to process OCR on the prescription.");
     }
+  };
+
+  const uploadToStorage = async (file: File): Promise<string> => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) throw new Error("User not authenticated");
+
+    const fileName = `${user.id}_${Date.now()}_${file.name}`;
+    const { data, error } = await supabase.storage
+      .from("prescriptions")
+      .upload(fileName, file);
+
+    if (error) throw error;
+    
+    const { data: { publicUrl } } = supabase.storage
+      .from("prescriptions")
+      .getPublicUrl(fileName);
+
+    return publicUrl;
+  };
+
+  const savePrescription = async (fileUrl: string, medicine: string, status: string) => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) throw new Error("User not authenticated");
+
+    const { error } = await supabase
+      .from("prescriptions")
+      .insert({
+        user_id: user.id,
+        file_url: fileUrl,
+        medicine_name: medicine,
+        status: status
+      });
+
+    if (error) throw error;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -48,6 +83,17 @@ const VerifyPrescription = () => {
     setOcrText(null);
 
     try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        toast({
+          title: "Authentication Required",
+          description: "Please login to continue.",
+          variant: "destructive",
+        });
+        navigate("/auth");
+        return;
+      }
+
       toast({
         title: "Processing...",
         description: "Analyzing the prescription. Please wait.",
@@ -59,7 +105,10 @@ const VerifyPrescription = () => {
 
       setOcrText(extractedText);
 
+      const fileUrl = await uploadToStorage(file);
+      
       if (!cleanedText.includes(normalizedMedicineName)) {
+        await savePrescription(fileUrl, medicineName, "rejected");
         toast({
           title: "Invalid Prescription",
           description: `The uploaded prescription does not include the required medicine: ${medicineName}.`,
@@ -68,6 +117,7 @@ const VerifyPrescription = () => {
         return;
       }
 
+      await savePrescription(fileUrl, medicineName, "approved");
       toast({
         title: "Success",
         description: "Prescription verified successfully. Proceeding to checkout.",
@@ -123,4 +173,4 @@ const VerifyPrescription = () => {
   );
 };
 
-export default VerifyPrescription;
+export default Prescriptions;
