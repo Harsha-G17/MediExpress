@@ -11,7 +11,7 @@ MediExpress is an online medicine-selling platform where users must authenticate
 ## Installation & Setup
 1. Clone the repository:
    ```sh
-   git clone https://github.com/yourusername/mediexpress.git
+   git clone https://github.com/Harsha-G17/MediExpress.git
    cd mediexpress
    ```
 2. Install dependencies:
