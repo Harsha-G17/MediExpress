@@ -12,7 +12,7 @@ MediExpress is an online medicine-selling platform where users must authenticate
 1. Clone the repository:
    ```sh
    git clone https://github.com/Harsha-G17/MediExpress.git
-   cd mediexpress
+   cd MediExpress
    ```
 2. Install dependencies:
    ```sh
