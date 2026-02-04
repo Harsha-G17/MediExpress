@@ -2,12 +2,18 @@
 import { createClient } from '@supabase/supabase-js';
 import type { Database } from './types';
 
+<<<<<<< HEAD
 const SUPABASE_URL = "https://bakcfxydttumgdonncpr.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJha2NmeHlkdHR1bWdkb25uY3ByIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAxODIxNjQsImV4cCI6MjA4NTc1ODE2NH0.286-keVD-K2VidCggfmzGAPAlvnV9aSZ08V_9VRkkIk";
+=======
+const SUPABASE_URL = "https://bakcfxydttumgdonncpr.supabase.co"
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_vK_rAT5O9Qt4eLMXn87sKQ_qqLWv8H1"
+>>>>>>> 50ef004ef3915ddfc34c29796fd95bf2ce064432
 
 // Import the supabase client like this:
 // import { supabase } from "@/integrations/supabase/client";
 
+<<<<<<< HEAD
 export const supabase = createClient<Database>(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
   auth: {
     storage: localStorage,
@@ -15,3 +21,6 @@ export const supabase = createClient<Database>(SUPABASE_URL, SUPABASE_PUBLISHABL
     autoRefreshToken: true,
   }
 });
+=======
+export const supabase = createClient<Database>(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+>>>>>>> 50ef004ef3915ddfc34c29796fd95bf2ce064432

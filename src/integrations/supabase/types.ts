@@ -7,15 +7,23 @@ export type Json =
   | Json[]
 
 export type Database = {
+<<<<<<< HEAD
   // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
     PostgrestVersion: "14.1"
+=======
+  // Allows to automatically instanciate createClient with right options
+  // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
+  __InternalSupabase: {
+    PostgrestVersion: "12.2.3 (519615d)"
+>>>>>>> 50ef004ef3915ddfc34c29796fd95bf2ce064432
   }
   public: {
     Tables: {
       appointments: {
         Row: {
+<<<<<<< HEAD
           appointment_date: string
           created_at: string | null
           doctor_name: string
@@ -43,6 +51,82 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+=======
+          appointment_date: string | null
+          appointment_type: string | null
+          contact: string
+          created_at: string
+          doctor_id: string | null
+          id: string
+          notes: string | null
+          patient_id: string
+          preferred_time: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          appointment_date?: string | null
+          appointment_type?: string | null
+          contact: string
+          created_at?: string
+          doctor_id?: string | null
+          id?: string
+          notes?: string | null
+          patient_id: string
+          preferred_time?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          appointment_date?: string | null
+          appointment_type?: string | null
+          contact?: string
+          created_at?: string
+          doctor_id?: string | null
+          id?: string
+          notes?: string | null
+          patient_id?: string
+          preferred_time?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      cart_items: {
+        Row: {
+          created_at: string
+          id: string
+          product_id: string
+          quantity: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          product_id: string
+          quantity?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          product_id?: string
+          quantity?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cart_items_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+>>>>>>> 50ef004ef3915ddfc34c29796fd95bf2ce064432
       }
       consultations: {
         Row: {
@@ -157,12 +241,21 @@ export type Database = {
           category?: string | null
           created_at?: string | null
           description?: string | null
+<<<<<<< HEAD
           id?: string
           image_url?: string | null
           name: string
           prescription_required?: boolean
           price: number
           stock_quantity?: number
+=======
+          id: string
+          image_url?: string | null
+          name: string
+          prescription_required: boolean
+          price: number
+          stock_quantity: number
+>>>>>>> 50ef004ef3915ddfc34c29796fd95bf2ce064432
           updated_at?: string | null
         }
         Update: {
@@ -185,7 +278,10 @@ export type Database = {
           id: string
           name: string | null
           phone: string | null
+<<<<<<< HEAD
           role: string | null
+=======
+>>>>>>> 50ef004ef3915ddfc34c29796fd95bf2ce064432
           updated_at: string | null
         }
         Insert: {
@@ -193,7 +289,10 @@ export type Database = {
           id: string
           name?: string | null
           phone?: string | null
+<<<<<<< HEAD
           role?: string | null
+=======
+>>>>>>> 50ef004ef3915ddfc34c29796fd95bf2ce064432
           updated_at?: string | null
         }
         Update: {
@@ -201,17 +300,61 @@ export type Database = {
           id?: string
           name?: string | null
           phone?: string | null
+<<<<<<< HEAD
           role?: string | null
+=======
+>>>>>>> 50ef004ef3915ddfc34c29796fd95bf2ce064432
           updated_at?: string | null
         }
         Relationships: []
       }
+<<<<<<< HEAD
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
       [_ in never]: never
+=======
+      User: {
+        Row: {
+          createdAt: string
+          email: string
+          id: string
+        }
+        Insert: {
+          createdAt?: string
+          email: string
+          id: string
+        }
+        Update: {
+          createdAt?: string
+          email?: string
+          id?: string
+        }
+        Relationships: []
+      }
+    }
+    Views: {
+      appointment_stats: {
+        Row: {
+          status: string | null
+          total: number | null
+          unassigned_count: number | null
+        }
+        Relationships: []
+      }
+    }
+    Functions: {
+      is_admin: {
+        Args: { user_id: string }
+        Returns: boolean
+      }
+      is_doctor: {
+        Args: { user_id: string }
+        Returns: boolean
+      }
+>>>>>>> 50ef004ef3915ddfc34c29796fd95bf2ce064432
     }
     Enums: {
       [_ in never]: never

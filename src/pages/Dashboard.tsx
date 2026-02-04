@@ -73,7 +73,11 @@ const Dashboard = () => {
       const { data: appointmentData } = await supabase
         .from("appointments")
         .select("*")
+<<<<<<< HEAD
         .eq("user_id", userId)
+=======
+        .eq("patient_id", userId)
+>>>>>>> 50ef004ef3915ddfc34c29796fd95bf2ce064432
         .order("created_at", { ascending: false });
       
       setAppointments(appointmentData || []);
