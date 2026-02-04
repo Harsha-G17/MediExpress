@@ -14,7 +14,198 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      appointments: {
+        Row: {
+          appointment_date: string
+          created_at: string | null
+          doctor_name: string
+          id: string
+          notes: string | null
+          status: string
+          user_id: string
+        }
+        Insert: {
+          appointment_date: string
+          created_at?: string | null
+          doctor_name: string
+          id?: string
+          notes?: string | null
+          status?: string
+          user_id: string
+        }
+        Update: {
+          appointment_date?: string
+          created_at?: string | null
+          doctor_name?: string
+          id?: string
+          notes?: string | null
+          status?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      consultations: {
+        Row: {
+          contact: string
+          created_at: string | null
+          doctor_email: string | null
+          doctor_id: string | null
+          id: string
+          notes: string | null
+          preferred_time: string | null
+          status: string
+          user_id: string
+        }
+        Insert: {
+          contact: string
+          created_at?: string | null
+          doctor_email?: string | null
+          doctor_id?: string | null
+          id?: string
+          notes?: string | null
+          preferred_time?: string | null
+          status?: string
+          user_id: string
+        }
+        Update: {
+          contact?: string
+          created_at?: string | null
+          doctor_email?: string | null
+          doctor_id?: string | null
+          id?: string
+          notes?: string | null
+          preferred_time?: string | null
+          status?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      orders: {
+        Row: {
+          amount: number
+          created_at: string | null
+          id: string
+          items: string
+          order_id: string
+          payment_method: string
+          status: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string | null
+          id?: string
+          items: string
+          order_id: string
+          payment_method: string
+          status?: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string | null
+          id?: string
+          items?: string
+          order_id?: string
+          payment_method?: string
+          status?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      prescriptions: {
+        Row: {
+          created_at: string | null
+          file_url: string
+          id: string
+          medicine_name: string
+          status: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          file_url: string
+          id?: string
+          medicine_name: string
+          status?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          file_url?: string
+          id?: string
+          medicine_name?: string
+          status?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      products: {
+        Row: {
+          category: string | null
+          created_at: string | null
+          description: string | null
+          id: string
+          image_url: string | null
+          name: string
+          prescription_required: boolean
+          price: number
+          stock_quantity: number
+          updated_at: string | null
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          name: string
+          prescription_required?: boolean
+          price: number
+          stock_quantity?: number
+          updated_at?: string | null
+        }
+        Update: {
+          category?: string | null
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          name?: string
+          prescription_required?: boolean
+          price?: number
+          stock_quantity?: number
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          address: string | null
+          id: string
+          name: string | null
+          phone: string | null
+          role: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          address?: string | null
+          id: string
+          name?: string | null
+          phone?: string | null
+          role?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          address?: string | null
+          id?: string
+          name?: string | null
+          phone?: string | null
+          role?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
